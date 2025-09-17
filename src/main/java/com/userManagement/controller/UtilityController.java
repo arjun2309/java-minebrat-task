@@ -16,8 +16,13 @@ import com.userManagement.service.UtilityService;
 public class UtilityController {
     @Autowired private UtilityService utilService;
 
+    
     @PostMapping("/permutations")
     public Set<String> permutations(@RequestBody Map<String, String> body) {
-        return utilService.generatePermutations(body.get("input"));
+        String input = body.get("input");
+        if (input == null || input.isEmpty()) {
+            throw new IllegalArgumentException("Input cannot be null or empty");
+        }
+        return utilService.generatePermutations(input);
     }
 }
